@@ -58,8 +58,8 @@ export default function BikeMap({ routes, mode, safetyVis, onOverrideSaved }) {
 
       // Highlight manually overridden segments
       const options = route.hasOverride
-  ? { color, weight: weight + 2, opacity: 1, dashArray, className: 'route-edited' }
-  : { color, weight: weight + 2, opacity: 1, dashArray };
+  ? { color, weight: weight + 2, opacity: 0.75, dashArray, className: 'route-edited' }
+  : { color, weight: weight + 2, opacity: 0.75, dashArray };
 
       const layer = L.polyline(route.coordinates, options);
 
