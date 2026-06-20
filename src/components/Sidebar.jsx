@@ -16,8 +16,7 @@ export default function Sidebar({ mode, setMode, safetyVis, toggleSafety, status
       <button
         onClick={() => setCollapsed(!collapsed)}
         style={{
-          position: 'absolute', top: 12, left: collapsed ? 12 : 252,
-          zIndex: 2000, background: '#fff', border: '1px solid #ddd',
+          position: 'absolute', bottom: 24, left: collapsed ? 12 : 252,          zIndex: 2000, background: '#fff', border: '1px solid #ddd',
           borderRadius: 20, padding: '4px 10px', fontSize: 12,
           cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
           transition: 'left 0.2s',
