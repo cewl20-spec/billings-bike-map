@@ -32,7 +32,7 @@ export function useRoutes() {
 
     try {
       const query = buildOverpassQuery(BILLINGS_BOUNDS);
-      const res = await fetch('https://overpass-api.de/api/interpreter', {
+      const res = await fetch('https://overpass.kumi.systems/api/interpreter', {
         method: 'POST',
         body: 'data=' + encodeURIComponent(query),
       });
