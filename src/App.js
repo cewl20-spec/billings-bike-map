@@ -17,8 +17,7 @@ export default function App() {
   }, [reapplyOverrides]);
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-      <Sidebar
+<div style={{ display: 'flex', height: '100vh', overflow: 'clip' }}>      <Sidebar
         mode={mode}
         setMode={setMode}
         safetyVis={safetyVis}
