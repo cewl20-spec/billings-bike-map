@@ -10,16 +10,22 @@ const GIS_BASE = 'https://billingsgis.com/arcgis_public/rest/services/ArcOnline_
 function scoreGisSegment(cls, existing) {
   const c = (cls || '').toLowerCase();
   const e = (existing || '').toLowerCase();
-  if (e.includes('bike lane') && !e.includes('shared')) return 'high';
+  // Dedicated trails — always high safety
   if (c.includes('multi-use trail')) return 'high';
+  if (c.includes('neighborhood trail')) return 'high';
+  if (c === 'trail' || c.includes(', active')) return 'high';
+  if (c.includes('soft-surface')) return 'high';
+  // Protected bike lanes
+  if (e.includes('bike lane') && !e.includes('shared')) return 'high';
+  // Shared lanes and lower-tier bikeways
   if (e.includes('bike lane - shared') || e.includes('sharrow')) return 'med';
   if (c.includes('neighborhood bikeway')) return 'med';
-  if (c.includes('soft-surface')) return 'med';
   if (c.includes('connector') || c.includes('bridge') || c.includes('underpass')) return 'med';
+  // Arterials and shared roads
   if (c.includes('primary bikeway') || c.includes('arterial bikeway')) return 'low';
   if (c.includes('secondary bikeway')) return 'low';
   if (c.includes('primitive')) return 'low';
-  return 'low';
+  return 'med';
 }
 
 function modeFromGisClass(cls) {
