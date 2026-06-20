@@ -5,8 +5,7 @@ import { useRoutes } from './useRoutes';
 
 export default function App() {
   const [mode, setMode] = useState('all');
-  const [safetyVis, setSafetyVis] = useState({ high: true, med: true, low: true });
-  const { routes, status, error, count, refreshRoutes, reapplyOverrides } = useRoutes();
+  const [safetyVis, setSafetyVis] = useState({ high: true, med: true, low: true, primitive: true });  const { routes, status, error, count, refreshRoutes, reapplyOverrides } = useRoutes();
 
   function toggleSafety(key) {
     setSafetyVis(prev => ({ ...prev, [key]: !prev[key] }));
