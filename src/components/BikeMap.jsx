@@ -23,10 +23,10 @@ export default function BikeMap({ routes, mode, safetyVis, onOverrideSaved }) {
     });
 
     // OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      maxZoom: 19,
-    }).addTo(map);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+  maxZoom: 19,
+}).addTo(map);
 
     mapInstanceRef.current = map;
 
@@ -58,8 +58,8 @@ export default function BikeMap({ routes, mode, safetyVis, onOverrideSaved }) {
 
       // Highlight manually overridden segments
       const options = route.hasOverride
-        ? { color, weight, opacity: 0.9, dashArray, className: 'route-edited' }
-        : { color, weight, opacity: 0.8, dashArray };
+  ? { color, weight: weight + 2, opacity: 1, dashArray, className: 'route-edited' }
+  : { color, weight: weight + 2, opacity: 1, dashArray };
 
       const layer = L.polyline(route.coordinates, options);
 
