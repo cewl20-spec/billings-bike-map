@@ -11,8 +11,7 @@ export default function Sidebar({ mode, setMode, safetyVis, toggleSafety, status
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-  <div style={{ position: 'relative', width: collapsed ? 0 : 240, flexShrink: 0, transition: 'width 0.2s' }}>
-    <button
+<div style={{ position: 'relative', width: collapsed ? 0 : 240, flexShrink: 0, transition: 'width 0.2s', overflow: 'visible' }}>    <button
       onClick={() => setCollapsed(!collapsed)}
       style={{
         position: 'absolute', bottom: 24, left: collapsed ? 12 : 252,
