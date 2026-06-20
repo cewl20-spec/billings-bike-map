@@ -53,7 +53,7 @@ export default function BikeMap({ routes, mode, safetyVis, onOverrideSaved }) {
       if (!modeMatch || !safetyMatch) return;
 
       const color = safetyColor(route.safety);
-      const weight = route.safety === 'high' ? 5 : 3.5;
+      const weight = route.safety === 'high' ? 3 : 2.5;
       const dashArray = (route.mode === 'both' || !route.name) ? '8 5' : null;
 
       // Highlight manually overridden segments
@@ -84,7 +84,7 @@ export default function BikeMap({ routes, mode, safetyVis, onOverrideSaved }) {
       });
 
       layer.on('mouseover', () => {
-        layer.setStyle({ weight: weight + 2, opacity: 1 });
+        layer.setStyle({ weight: weight + 3, opacity: 1 });
       });
 
       layer.on('mouseout', () => {
