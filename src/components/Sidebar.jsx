@@ -103,16 +103,20 @@ export default function Sidebar({ mode, setMode, safetyVis, toggleSafety, status
               Key
             </div>
             {[
-              { color: '#1a9e74', label: 'Protected trail / cycleway', weight: 4 },
-              { color: '#e09f27', label: 'Painted bike lane', weight: 3 },
-              { color: '#e04a4a', label: 'Shared road', weight: 3 },
-              { color: '#a07840', label: 'Primitive / unimproved', weight: 3 },
-            ].map(({ color, label, weight }) => (
-              <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                <div style={{ width: 24, height: weight, background: color, borderRadius: 2, flexShrink: 0 }} />
-                <span style={{ fontSize: 12, color: '#555' }}>{label}</span>
-              </div>
-            ))}
+  { color: '#1a9e74', label: 'Protected trail / cycleway', weight: 4 },
+  { color: '#e09f27', label: 'Painted bike lane', weight: 3 },
+  { color: '#e04a4a', label: 'Shared road', weight: 3 },
+  { color: '#a07840', label: 'Primitive / unimproved', weight: 3 },
+].map(({ color, label, weight }) => (
+  <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+    <div style={{ width: 24, height: weight, background: color, borderRadius: 2, flexShrink: 0 }} />
+    <span style={{ fontSize: 12, color: '#555' }}>{label}</span>
+  </div>
+))}
+<div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+  <div style={{ width: 24, height: 0, borderTop: '3px dashed #888', flexShrink: 0 }} />
+  <span style={{ fontSize: 12, color: '#555' }}>Cut-through / informal</span>
+</div>
           </div>
 
           <div style={{ marginTop: 'auto', fontSize: 11, color: '#aaa', lineHeight: 1.5 }}>
