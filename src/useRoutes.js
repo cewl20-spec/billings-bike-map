@@ -81,10 +81,11 @@ async function fetchGisLayer(layerId, nameField, classField, existingField) {
 
       const overrideKey = `override_${layerId}_${props.OBJECTID}`;
       const override = JSON.parse(localStorage.getItem(overrideKey) || 'null');
-      const isPlanned = existing.includes('proposed') || 
-                  cls.toLowerCase().includes('proposed') ||
-                  (existing.trim() === '' && cls.toLowerCase().includes('bikeway'));
-
+      const isPlanned = layerId === 1 && (
+        existing.toLowerCase().includes('proposed') ||
+        existing.toLowerCase().includes('preactive') ||
+        cls.toLowerCase().includes('proposed')
+      );
 return {
   id: `gis_${layerId}_${props.OBJECTID}`,
   coordinates,
