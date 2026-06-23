@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { buildOverpassQuery, osmToFeature, BILLINGS_BOUNDS } from './routeUtils';
+import residentialRoads from './residential-roads.json';
 
 const CACHE_KEY = 'billings_routes_cache';
 const CACHE_TTL = 24 * 60 * 60 * 1000;
@@ -119,6 +120,18 @@ export function useRoutes() {
       ]);
 
       let features = [];
+
+// Static residential roads — loaded instantly from CDN
+const residentialFeatures = residentialRoads.map(r => {
+  const overrideKey = `override_${r.id}`;
+  const override = JSON.parse(localStorage.getItem(overrideKey) || 'null');
+  return override
+    ? { ...r, safety: override.safety || r.safety, mode: override.mode || r.mode, notes: override.notes || null, hasOverride: true }
+    : r;
+});
+features = features.concat(residentialFeatures);
+
+      
 
       // OSM routes
       if (osmRes.status === 'fulfilled') {
