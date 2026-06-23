@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { saveOverride, clearOverride } from '../routeUtils';
 
-const SAFETY_OPTIONS = ['high', 'med', 'low'];
+const SAFETY_OPTIONS = ['high', 'med', 'low', 'primitive', 'planned'];
 const MODE_OPTIONS = ['rec', 'commute', 'both'];
-const SAFETY_LABELS = { high: '🟢 High', med: '🟡 Medium', low: '🔴 Low' };
+const SAFETY_LABELS = { high: '🟢 High', med: '🟡 Medium', low: '🔴 Low', primitive: '🟤 Primitive', planned: '⬜ Planned' };
 const MODE_LABELS = { rec: '🚵 Recreation', commute: '🏙 Commute', both: '🔄 Both' };
 
 export default function RoutePopup({ route, onOverrideSaved }) {
