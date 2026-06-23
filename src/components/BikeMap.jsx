@@ -64,8 +64,7 @@ export default function BikeMap({ routes, mode, safetyVis, onOverrideSaved }) {
 
       layer.on('click', (e) => {
         const container = document.createElement('div');
-        const popup = L.popup({ maxWidth: 280, minWidth: 220 })
-          .setLatLng(e.latlng)
+        const popup = L.popup({ maxWidth: 280, minWidth: 220, autoClose: false, closeOnClick: false })          .setLatLng(e.latlng)
           .setContent(container)
           .openOn(map);
 
