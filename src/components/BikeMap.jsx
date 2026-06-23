@@ -54,8 +54,7 @@ export default function BikeMap({ routes, mode, safetyVis, onOverrideSaved }) {
 
       const color = safetyColor(route.safety);
       const weight = route.safety === 'high' ? 3 : 2.5;
-      const dashArray = route.planned || (route.mode === 'both' || !route.name) ? '8 5' : null;
-      // Highlight manually overridden segments
+      const dashArray = route.planned ? '8 5' : null;      // Highlight manually overridden segments
       const options = route.hasOverride
   ? { color, weight: weight + 2, opacity: 0.75, dashArray, className: 'route-edited' }
   : { color, weight: weight + 2, opacity: 0.75, dashArray };
@@ -64,7 +63,7 @@ export default function BikeMap({ routes, mode, safetyVis, onOverrideSaved }) {
 
       layer.on('click', (e) => {
         const container = document.createElement('div');
-        const popup = L.popup({ maxWidth: 280, minWidth: 220, autoClose: false, closeOnClick: false })          .setLatLng(e.latlng)
+        const popup = L.popup({ maxWidth: 340, minWidth: 300, autoClose: false, closeOnClick: false })          .setLatLng(e.latlng)
           .setContent(container)
           .openOn(map);
 
