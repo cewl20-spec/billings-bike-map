@@ -11,16 +11,23 @@ const GIS_BASE = 'https://billingsgis.com/arcgis_public/rest/services/ArcOnline_
 function scoreGisSegment(cls, existing) {
   const c = (cls || '').toLowerCase();
   const e = (existing || '').toLowerCase();
+  // Dedicated trails — high
   if (c.includes('multi-use trail')) return 'high';
   if (c.includes('neighborhood trail')) return 'high';
   if (c.includes('soft-surface')) return 'high';
   if (c === 'trail') return 'high';
   if (c.includes('connector') || c.includes('bridge') || c.includes('underpass')) return 'high';
+  // Designated bike routes — high
+  if (c.includes('primary bikeway')) return 'high';
+  if (c.includes('secondary bikeway')) return 'high';
+  if (c.includes('neighborhood bikeway')) return 'high';
+  // Existing infrastructure — scored by EXISTING field
   if (e.includes('bike lane') && !e.includes('shared')) return 'high';
   if (e.includes('bike lane - shared') || e.includes('sharrow')) return 'med';
-  if (c.includes('neighborhood bikeway')) return 'med';
-  if (c.includes('primary bikeway') || c.includes('arterial bikeway')) return 'low';
-  if (c.includes('secondary bikeway')) return 'low';
+  // Arterials — low
+  if (c.includes('arterial')) return 'low';
+  if (c.includes('principal vehicular')) return 'low';
+  // Primitive
   if (c.includes('primitive')) return 'primitive';
   return 'med';
 }

@@ -14,6 +14,7 @@ export function buildOverpassQuery(bounds) {
     [out:json][timeout:40];
     (
       way["highway"="cycleway"]["name"](${bbox});
+      way["highway"!="motorway"]["highway"!="motorway_link"]
       way["highway"="path"]["bicycle"!="no"]["name"](${bbox});      way["highway"="footway"]["bicycle"="yes"](${bbox});
       way["cycleway"~"lane|track|opposite_lane|opposite_track"](${bbox});
       way["bicycle"="designated"](${bbox});
