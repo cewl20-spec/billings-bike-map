@@ -12,6 +12,7 @@ function scoreGisSegment(cls, existing) {
   const c = (cls || '').toLowerCase();
   const e = (existing || '').toLowerCase();
   // Dedicated trails — high
+  if (c.includes('principal vehicular')) return null;
   if (c.includes('multi-use trail')) return 'high';
   if (c.includes('neighborhood trail')) return 'high';
   if (c.includes('soft-surface')) return 'high';
@@ -30,6 +31,7 @@ function scoreGisSegment(cls, existing) {
   // Primitive
   if (c.includes('primitive')) return 'primitive';
   return 'med';
+  
 }
 
 function modeFromGisClass(cls) {
@@ -60,8 +62,12 @@ async function fetchGisLayer(layerId, nameField, classField, existingField) {
       const cls = props[classField] || props['Class'] || props['CLASS'] || '';
       const existing = props[existingField] || props['EXISTING'] || '';
       const name = props[nameField] || props['NAME'] || props['Name_Local'] || null;
-      const safety = scoreGisSegment(cls, existing);
-      const mode = modeFromGisClass(cls);
+
+  // Exclude interstates and principal vehicular arterials
+  if (cls.toLowerCase().includes('principal vehicular')) return null;
+
+  const safety = scoreGisSegment(cls, existing);
+  const mode = modeFromGisClass(cls);
 
       // Handle both LineString and MultiLineString
       let coordinates;
@@ -134,7 +140,7 @@ export function useRoutes() {
       let features = [];
 
 // Static residential roads — loaded instantly from CDN
-const residentialFeatures = residentialRoads.map(r => {
+  const residentialFeatures = residentialRoads.map(r => {
   const overrideKey = `override_${r.id}`;
   const override = JSON.parse(localStorage.getItem(overrideKey) || 'null');
   return override
@@ -142,6 +148,11 @@ const residentialFeatures = residentialRoads.map(r => {
     : r;
 });
 features = features.concat(residentialFeatures);
+
+// Build set of residential road names for deduplication
+const residentialNames = new Set(
+  residentialFeatures.map(r => r.name?.toLowerCase()).filter(Boolean)
+);
 
       
 
@@ -166,7 +177,12 @@ features = features.concat(residentialFeatures);
 
       if (features.length === 0) throw new Error('No routes returned from any source');
 
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), routes: features }));
+      // Drop City GIS segments that duplicate a residential road name
+      features = features.filter(f =>
+      f.source !== 'city' || !residentialNames.has(f.name?.toLowerCase())
+      );
+
+localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), routes: features }));
       setRoutes(features);
       setCount(features.length);
       setStatus('loaded');
