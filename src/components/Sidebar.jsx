@@ -5,6 +5,7 @@ const SAFETY_CONFIG = [
   { key: 'med',  label: 'Medium safety', color: '#e09f27', desc: 'Painted lanes & low-speed roads' },
   { key: 'low',  label: 'Low safety', color: '#e04a4a', desc: 'Shared arterial roads' },
   { key: 'primitive', label: 'Primitive / Unimproved', color: '#a07840', desc: 'Unpaved or unimproved trails' },
+  { key: 'planned', label: 'Planned / Proposed', color: '#888888', desc: 'Not yet built' },
 ];
 
 export default function Sidebar({ mode, setMode, safetyVis, toggleSafety, status, count, onRefresh }) {

@@ -107,7 +107,7 @@ function inferType(tags) {
 
 // Color by safety level
 export function safetyColor(safety) {
-  return { high: '#1a9e74', med: '#e09f27', low: '#e04a4a', primitive: '#a07840' }[safety] || '#888';
+  return { high: '#1a9e74', med: '#e09f27', low: '#e04a4a', primitive: '#a07840', planned: '#888888' }[safety] || '#888';
 }
 
 // Save a manual override for a segment

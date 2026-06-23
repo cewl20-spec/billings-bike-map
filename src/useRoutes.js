@@ -68,21 +68,26 @@ async function fetchGisLayer(layerId, nameField, classField, existingField) {
 
       const overrideKey = `override_${layerId}_${props.OBJECTID}`;
       const override = JSON.parse(localStorage.getItem(overrideKey) || 'null');
+      const isPlanned = existing.includes('proposed') || 
+                  cls.toLowerCase().includes('proposed') ||
+                  (existing.trim() === '' && cls.toLowerCase().includes('bikeway'));
 
-      return {
-        id: `gis_${layerId}_${props.OBJECTID}`,
-        coordinates,
-        tags: {},
-        name,
-        type: cls || 'City bikeway',
-        safety: override?.safety || safety,
-        autoSafety: safety,
-        mode: override?.mode || mode,
-        autoMode: mode,
-        hasOverride: !!override,
-        notes: override?.notes || null,
-        source: 'city',
-      };
+return {
+  id: `gis_${layerId}_${props.OBJECTID}`,
+  coordinates,
+  tags: {},
+  name,
+  type: cls || 'City bikeway',
+  existing,
+  safety: override?.safety || (isPlanned ? 'planned' : safety),
+  autoSafety: isPlanned ? 'planned' : safety,
+  mode: override?.mode || mode,
+  autoMode: mode,
+  hasOverride: !!override,
+  notes: override?.notes || null,
+  source: 'city',
+  planned: isPlanned,
+};
     })
     .filter(Boolean);
 }
