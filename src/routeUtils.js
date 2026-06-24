@@ -44,6 +44,7 @@ export function scoreSegment(tags) {
   if (bicycle === 'yes' || bicycle === 'permissive') return 'med';
   if (maxspeed <= 25) return 'med';
   if (hw === 'residential' || hw === 'living_street') return 'med';
+  if (hw === 'tertiary') return 'med';
   if (hw === 'footway' && bicycle === 'yes') return 'med';
 
   // Low safety: shared arterials
