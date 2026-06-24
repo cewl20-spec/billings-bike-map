@@ -150,9 +150,32 @@ export function useRoutes() {
 });
 features = features.concat(residentialFeatures);
 
-// Build set of residential road names for deduplication
+// Normalize street names for comparison - handle abbreviations and case
+function normalizeName(name) {
+  if (!name) return null;
+  return name.toLowerCase()
+    .replace(/\bst\b/g, 'street')
+    .replace(/\bave\b/g, 'avenue')
+    .replace(/\bblvd\b/g, 'boulevard')
+    .replace(/\bdr\b/g, 'drive')
+    .replace(/\brd\b/g, 'road')
+    .replace(/\bln\b/g, 'lane')
+    .replace(/\bct\b/g, 'court')
+    .replace(/\bpl\b/g, 'place')
+    .replace(/\bn\b/g, 'north')
+    .replace(/\bs\b/g, 'south')
+    .replace(/\be\b/g, 'east')
+    .replace(/\bw\b/g, 'west')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 const residentialNames = new Set(
-  residentialFeatures.map(r => r.name?.toLowerCase()).filter(Boolean)
+  residentialFeatures.map(r => normalizeName(r.name)).filter(Boolean)
+);
+
+features = features.filter(f =>
+  f.source !== 'city' || !residentialNames.has(normalizeName(f.name))
 );
 
       
