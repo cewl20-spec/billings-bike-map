@@ -52,6 +52,20 @@ export default function App() {
           onOverrideSaved={handleOverrideSaved}
         />
       </div>
+      <button
+  onClick={() => {
+    const routes = JSON.parse(localStorage.getItem('billings_routes_cache')).routes;
+    const types = {};
+    routes.forEach(r => {
+      const k = `${r.source}|${r.type}|${r.safety}`;
+      types[k] = (types[k] || 0) + 1;
+    });
+    alert(Object.entries(types).sort().map(([k,v]) => `${v} ${k}`).join('\n'));
+  }}
+  style={{ position: 'absolute', bottom: 60, right: 10, zIndex: 9999, fontSize: 10, padding: '2px 6px' }}
+>
+  Debug
+</button>
     </div>
   );
 }
