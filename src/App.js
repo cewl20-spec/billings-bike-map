@@ -60,7 +60,12 @@ export default function App() {
       const k = `${r.source}|${r.type}|${r.safety}`;
       types[k] = (types[k] || 0) + 1;
     });
-    alert(Object.entries(types).sort().map(([k,v]) => `${v} ${k}`).join('\n'));
+    const text = Object.entries(types).sort().map(([k,v]) => `${v} ${k}`).join('\n');
+    const blob = new Blob([text], {type: 'text/plain'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'route-types.txt';
+    a.click();
   }}
   style={{ position: 'absolute', bottom: 60, right: 10, zIndex: 9999, fontSize: 10, padding: '2px 6px' }}
 >
