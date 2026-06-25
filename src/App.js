@@ -54,19 +54,22 @@ export default function App() {
       </div>
       <button
   onClick={() => {
-    const routes = JSON.parse(localStorage.getItem('billings_routes_cache')).routes;
-    const types = {};
-    routes.forEach(r => {
-      const k = `${r.source}|${r.type}|${r.safety}`;
-      types[k] = (types[k] || 0) + 1;
-    });
-    const text = Object.entries(types).sort().map(([k,v]) => `${v} ${k}`).join('\n');
-    const blob = new Blob([text], {type: 'text/plain'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'route-types.txt';
-    a.click();
-  }}
+  const routes = JSON.parse(localStorage.getItem('billings_routes_cache')).routes;
+  const types = {};
+  routes.forEach(r => {
+    const k = `${r.source}|${r.type}|${r.safety}`;
+    if (!types[k]) types[k] = [];
+    if (types[k].length < 3) types[k].push(r.name || 'unnamed');
+  });
+  const text = Object.entries(types).sort()
+    .map(([k,v]) => `${k} — examples: ${v.join(', ')}`)
+    .join('\n');
+  const blob = new Blob([text], {type: 'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'route-types.txt';
+  a.click();
+}}
   style={{ position: 'absolute', bottom: 60, right: 10, zIndex: 9999, fontSize: 10, padding: '2px 6px' }}
 >
   Debug
