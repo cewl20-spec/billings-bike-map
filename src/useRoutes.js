@@ -10,28 +10,37 @@ const GIS_BASE = 'https://billingsgis.com/arcgis_public/rest/services/ArcOnline_
 // Score a City GIS bikeway segment from its CLASS + EXISTING fields
 function scoreGisSegment(cls, existing) {
   const c = (cls || '').toLowerCase();
-  const e = (existing || '').toLowerCase();
-  // Dedicated trails — high
-  if (c.includes('principal vehicular')) return null;
+  const e = (existing || '').toLowerCase().trim();
+
+  // EXISTING field takes priority over CLASS
+  if (e === 'bike lane') return 'med';
+  if (e.includes('bike lane - shared') || e.includes('sharrow')) return 'med';
+  if (e.includes('bike lane')) return 'med';
+
+  // High — physically separated, dedicated infrastructure
   if (c.includes('multi-use trail')) return 'high';
   if (c.includes('neighborhood trail')) return 'high';
   if (c.includes('soft-surface')) return 'high';
   if (c === 'trail') return 'high';
   if (c.includes('connector') || c.includes('bridge') || c.includes('underpass')) return 'high';
-  // Designated bike routes — high
-  if (c.includes('primary bikeway')) return 'high';
-  if (c.includes('secondary bikeway')) return 'high';
-  if (c.includes('neighborhood bikeway')) return 'high';
-  // Existing infrastructure — scored by EXISTING field
-  if (e.includes('bike lane') && !e.includes('shared')) return 'high';
-  if (e.includes('bike lane - shared') || e.includes('sharrow')) return 'med';
-  // Arterials — low
+  if (c.includes('city bikeway')) return 'high';
+
+  // Medium — designated routes, painted lanes, low traffic roads
+  if (c.includes('primary bikeway')) return 'med';
+  if (c.includes('primary bike route')) return 'med';
+  if (c.includes('secondary bikeway')) return 'med';
+  if (c.includes('secondary bike route')) return 'med';
+  if (c.includes('neighborhood bikeway')) return 'med';
+  if (c.includes('arterial bikeway w bike path')) return 'med';
+
+  // Low — arterials, high traffic, no real infrastructure
+  if (c.includes('arterial bikeway')) return 'low';
   if (c.includes('arterial')) return 'low';
-  if (c.includes('principal vehicular')) return 'low';
+
   // Primitive
   if (c.includes('primitive')) return 'primitive';
+
   return 'med';
-  
 }
 
 function modeFromGisClass(cls) {
@@ -65,6 +74,10 @@ async function fetchGisLayer(layerId, nameField, classField, existingField) {
 
   // Exclude interstates and principal vehicular arterials
   if (cls.toLowerCase().includes('principal vehicular')) return null;
+
+  // Exclude known bad geometry entries
+const GIS_EXCLUSIONS = ['SWORDS BYPASS RD'];
+if (GIS_EXCLUSIONS.includes(props[nameField] || props['NAME'] || '')) return null;
 
   const safety = scoreGisSegment(cls, existing);
   const mode = modeFromGisClass(cls);

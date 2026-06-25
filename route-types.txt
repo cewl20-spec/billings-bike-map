@@ -1,23 +1,23 @@
-1 city|Arterial Bikeway w Bike Path|high
-1 city|Arterial Bikeway|high
-151 city|Arterial Bikeway|low
-18 city|Bridge|high
-12 city|City bikeway|med
-1 city|City bikeway|planned
-5 city|Connector|high
-140 city|Multi-Use Trail|high
-25 city|Multi-Use Trail|planned
-140 city|Neighborhood Trail|high
-5 city|Neighborhood Trail|planned
-2 city|Primary Bike Route w Bike Path|high
-1 city|Primary Bike Route |high
-15 city|Primary Bike Route |med
-160 city|Primary Bikeway|high
-48 city|Primitive/Unimproved|primitive
-23 city|Secondary Bike Route|med
-25 city|Secondary Bikeway|high
-36 city|Soft-Surface Trail|high
-16 city|Trail|high
-13 city|Underpass|high
-3114 residential|Residential road|med
-363 residential|Tertiary road|med
+city|Arterial Bikeway w Bike Path|high — examples: GOVERNORS BLVD
+city|Arterial Bikeway|high — examples: GOVERNORS BLVD
+city|Arterial Bikeway|low — examples: HILLTOP RD, HILLTOP RD, 6TH AVE N
+city|Bridge|high — examples: Jim Dutcher Trail Corridor, Rose Park, BBWA Canal Trail Corridor
+city|City bikeway|med — examples: King Ave East Corridor, Elysian Rd , Grand Ave (Ben Steele School)
+city|City bikeway|planned — examples: unnamed
+city|Connector|high — examples: Zimmerman, Jim Dutcher Trail Corridor, Zimmerman
+city|Multi-Use Trail|high — examples: Zimmerman, Zimmerman Trl Trail, Shiloh Road Corridor
+city|Multi-Use Trail|planned — examples: Lockwood Canal, Lockwood Canal, Gabel Rd
+city|Neighborhood Trail|high — examples: Kiwanis Trail Corridor, Olympic & Heritage Sub Trails, Olympic & Heritage Sub Trails
+city|Neighborhood Trail|planned — examples: Copper Ridge Sub Trails, unnamed, unnamed
+city|Primary Bike Route w Bike Path|high — examples: S BROADWAY, LAKEHILLS DR
+city|Primary Bike Route |high — examples: S BROADWAY
+city|Primary Bike Route |med — examples: HACKAMORE TRL, NORTH PL, ROLLING HILLS RD
+city|Primary Bikeway|high — examples: SWORDS BYPASS RD,  , HILLBROOK AVE
+city|Primitive/Unimproved|primitive — examples: Rimrock, Zimmerman, Zimmerman
+city|Secondary Bike Route|med — examples: ST JOHNS AVE, TAYLOR PL, ST ANDREWS DR
+city|Secondary Bikeway|high — examples: LOCKWOOD FRONTAGE RD, LOCKWOOD FRONTAGE RD, LOCKWOOD FRONTAGE RD
+city|Soft-Surface Trail|high — examples: Jim Dutcher Trail Corridor, CEC Trail, CEC Trail
+city|Trail|high — examples: Zimmerman, Lake Elmo, Lake Elmo
+city|Underpass|high — examples: Shiloh Road Corridor, Swords Park Airport Road Corridor, Swords Park Airport Road Corridor
+residential|Residential road|med — examples: Burnstead Drive, Campus Way, Keno Street
+residential|Tertiary road|med — examples: Colton Boulevard, North 33rd Street, Milton Road
